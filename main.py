@@ -12,4 +12,12 @@
 ##############################################################################
 
 def intro():
-    print()
+    print("You wake up in an unfamiliar place, with a strage woman beside \
+you\n")
+    print("You've finally woken up hero - she said")
+    print("Where am I? - you reply")
+    print("The details are not important right now - she said\n")
+    print("You are the only person in this kingdom capable of defeating \
+the evil king that reigns this kingdom. I need you to take this sword \
+and put an end to his evil deeds.")
+    choice = 
