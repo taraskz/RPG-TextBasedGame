@@ -12,14 +12,27 @@
 ##############################################################################
 #---imports and global variables----------------------------------------------
 backpack = {}
-map = [["Kitchen","Hall","Kings Room"],
-       ["Main Hall","Throne Room","Hall"],
-       ["Hall","Dining Room","Hall"]
+map = [["Kitchen","Hall_1","Kings Room"],
+       ["Main Hall","Throne Room","Hall_3"],
+       ["Hall_2","Dining Room","Hall_4"]
       ]
 rooms = {"Main Hall": {"description": ["In front of you is a long hall with \
-expensive paintings and a long red carpet"],
-                      "options": ["forward","back"]
-                     }
+expensive paintings and a long red carpet."],
+                      "options": ["forward","left", "right"]
+                     },
+         "Kitchen": {"description": ["You went left and ended up in the \
+kitchen of the castle."],
+                     "options": ["forward","right"]
+                    },
+         "Hall_2": {"description":["You went right and ended up in a hallway\
+ "],
+                    "options": ["forward","left"]
+                   },
+         "Throne Room":{"description":["You went forward and ended up in \
+the throne room of the castle"],
+                        "options": ["forward","left","right","back"]
+                       },
+         "Hall_1":
         }
 #---functions-----------------------------------------------------------------
 def intro():
