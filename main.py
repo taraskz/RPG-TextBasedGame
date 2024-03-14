@@ -10,7 +10,7 @@
    from his control
    '''
 ##############################################################################
-
+backpack = {}
 def intro():
     print("You wake up in an unfamiliar place, with a strage woman beside \
 you\n")
@@ -20,4 +20,9 @@ you\n")
     print("You are the only person in this kingdom capable of defeating \
 the evil king that reigns this kingdom. I need you to take this sword \
 and put an end to his evil deeds.")
-    choice = 
+    choice = input("Will you take the sword? Yes or no: ")
+    if choice == "yes":
+        backpack["weapons"] = "magical sword"
+        print("Great now close your eyes - the witch says\n")
+        print("***You close your eyes***")
+        
