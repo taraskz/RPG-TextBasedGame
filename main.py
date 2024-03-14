@@ -10,9 +10,20 @@
    from his control
    '''
 ##############################################################################
+#---imports and global variables----------------------------------------------
 backpack = {}
+map = [["Kitchen","Hall","Kings Room"],
+       ["Main Hall","Throne Room","Hall"],
+       ["Hall","Dining Room","Hall"]
+      ]
+rooms = {"Main Hall": {"description": ["In front of you is a long hall with \
+expensive paintings and a long red carpet"],
+                      "options": ["forward","back"]
+                     }
+        }
+#---functions-----------------------------------------------------------------
 def intro():
-    print("You wake up in an unfamiliar place, with a strage woman beside \
+    print("You wake up in an unfamiliar place, with a strange woman beside \
 you\n")
     print("You've finally woken up hero - she said")
     print("Where am I? - you reply")
@@ -25,4 +36,6 @@ and put an end to his evil deeds.")
         backpack["weapons"] = "magical sword"
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
-        
+
+#---main----------------------------------------------------------------------
+intro()
