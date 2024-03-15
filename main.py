@@ -12,27 +12,30 @@
 ##############################################################################
 #---imports and global variables----------------------------------------------
 backpack = {}
-map = [["Kitchen","Hall_1","Kings Room"],
-       ["Main Hall","Throne Room","Hall_3"],
-       ["Hall_2","Dining Room","Hall_4"]
+map = [
+  ["Kitchen","Kings Room","Dining Room"],
+  ["Main Hall","Throne Room"]
       ]
 rooms = {"Main Hall": {"description": ["In front of you is a long hall with \
 expensive paintings and a long red carpet."],
-                      "options": ["forward","left", "right"]
+                      "options": ["forward","left"]
                      },
          "Kitchen": {"description": ["You went left and ended up in the \
 kitchen of the castle."],
                      "options": ["forward","right"]
                     },
-         "Hall_2": {"description":["You went right and ended up in a hallway\
- "],
-                    "options": ["forward","left"]
-                   },
-         "Throne Room":{"description":["You went forward and ended up in \
-the throne room of the castle"],
-                        "options": ["forward","left","right","back"]
+         "Kings Room": {"description":["You went forward and ended up in \
+the kings room where he sleeps"],
+                        "options": ["right", "forward"]
                        },
-         "Hall_1":
+         "Dinning Room":{"description":["You went forward and ended up in \
+the dinning room where the king eats"],
+                         "options":["back"]
+                        },
+         "Throne Room":{"description":["You went right and ended up in \
+the throne room where the king sits"],
+                        "options": ["back"]
+                       }
         }
 #---functions-----------------------------------------------------------------
 def intro():
@@ -50,5 +53,7 @@ and put an end to his evil deeds.")
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
 
+def menu():
+    print()
 #---main----------------------------------------------------------------------
 intro()
