@@ -52,8 +52,20 @@ and put an end to his evil deeds.")
         backpack["weapons"] = "magical sword"
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
+    
 
 def menu():
-    print()
+    print("***You wake up***")
+    for item in rooms["Main Hall"]["description"]:
+        print(item)
+    print("You need to move quick so that you don't get spotted \
+by the guards. Here are your options:")
+    for item in rooms["Main Hall"]["options"]:
+        print("- " + item)
+    direction = input("choice: ")
+    if direction in rooms["Main Hall"]["options"]:
+        print("You moved")
+        
 #---main----------------------------------------------------------------------
-intro()
+#intro()
+menu()
