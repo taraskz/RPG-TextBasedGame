@@ -15,7 +15,7 @@ backpack = {}
 
 rooms = {
     "Main Hall": "In front of you is a long hall with expensive paintings and\
-a long red carpet.",
+ a long red carpet.",
     "Kitchen": "Now you're in the kitchen of the castle, it smells great",
     "Kings Room": "You are in the kings room where he sleeps, hes not here",
     "Dinning Room":"Now you're in the dinning room where the king eats",
@@ -34,7 +34,7 @@ current_location = "Main Hall" #staring position
 
 directions = {
     "north": (0,1),
-    "south": (0.-1),
+    "south": (0,-1),
     "east": (1,0),
     "west": (-1,0)
 }
@@ -45,10 +45,10 @@ def show_room_location():
 
 def movement(direction):
     global current_location
-    new_x = room_location[current_location[0] + directions[0]] # adds x value
-    new_y = room_location[current_location[1] + directions[1]] # adds y value
+    new_x = room_location[current_location][0] + directions[direction][0] 
+    new_y = room_location[current_location][1] + directions[direction][1] 
     new_location = (new_x, new_y)
-    if new_location in room_location:
+    if new_location in room_location.values():
         current_location = next(room for room, index in room_location.items() 
                                 if index == new_location)
     else:
@@ -56,6 +56,7 @@ def movement(direction):
 
 
 def intro():
+    global backpack
     print("You wake up in an unfamiliar place, with a strange woman beside \
 you\n")
     print("You've finally woken up hero - she said")
@@ -63,27 +64,29 @@ you\n")
     print("The details are not important right now - she said\n")
     print("You are the only person in this kingdom capable of defeating \
 the evil king that reigns this kingdom. I need you to take this sword \
-and put an end to his evil deeds.")
+and put an end to his evil deeds.\n")
     choice = input("Will you take the sword? Yes or no: ")
     if choice == "yes":
         backpack["weapons"] = "magical sword"
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
+        print("***You wake up***")
     
 
 def menu():
-    print("***You wake up***")
     show_room_location()
     print("Here are your movement options:")
     for direction in directions:
         print(f"{direction}")
     direction = input("Choose: ").lower()
     if direction in directions:
-        move(direction)
+        movement(direction)
     else:
         print("Wrong direction.")
     
-
+def game():
+    intro()
+    while True:
+        menu()
 #---main----------------------------------------------------------------------
-#intro()
-menu()
+game()
