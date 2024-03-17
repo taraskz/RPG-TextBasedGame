@@ -30,7 +30,7 @@ room_location = {
     "Throne Room": (1,0)
 }
 
-starting_location = "Main Hall" #staring position
+current_location = "Main Hall" #staring position
 
 directions = {
     "north": (0,1),
@@ -39,6 +39,22 @@ directions = {
     "west": (-1,0)
 }
 #---functions-----------------------------------------------------------------
+def show_room_location():
+    print(rooms[current_location]) # prints the location of the player
+
+
+def movement(direction):
+    global current_location
+    new_x = room_location[current_location[0] + directions[0]] # adds x value
+    new_y = room_location[current_location[1] + directions[1]] # adds y value
+    new_location = (new_x, new_y)
+    if new_location in room_location:
+        current_location = next(room for room, index in room_location.items() 
+                                if index == new_location)
+    else:
+        print("Unfortunetly you can't go there, try again")
+
+
 def intro():
     print("You wake up in an unfamiliar place, with a strange woman beside \
 you\n")
@@ -57,15 +73,6 @@ and put an end to his evil deeds.")
 
 def menu():
     print("***You wake up***")
-    for item in rooms["Main Hall"]["description"]:
-        print(item)
-    print("You need to move quick so that you don't get spotted \
-by the guards. Here are your options:")
-    for item in rooms["Main Hall"]["options"]:
-        print("- " + item)
-    direction = input("choice: ")
-    if direction in rooms["Main Hall"]["options"]:
-        print("You moved")
         
 #---main----------------------------------------------------------------------
 #intro()
