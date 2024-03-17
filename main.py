@@ -12,31 +12,22 @@
 ##############################################################################
 #---imports and global variables----------------------------------------------
 backpack = {}
-map = [
-  ["Kitchen","Kings Room","Dining Room"],
-  ["Main Hall","Throne Room"]
-      ]
-rooms = {"Main Hall": {"description": ["In front of you is a long hall with \
-expensive paintings and a long red carpet."],
-                      "options": ["forward","left"]
-                     },
-         "Kitchen": {"description": ["You went left and ended up in the \
-kitchen of the castle."],
-                     "options": ["forward","right"]
-                    },
-         "Kings Room": {"description":["You went forward and ended up in \
-the kings room where he sleeps"],
-                        "options": ["right", "forward"]
-                       },
-         "Dinning Room":{"description":["You went forward and ended up in \
-the dinning room where the king eats"],
-                         "options":["back"]
-                        },
-         "Throne Room":{"description":["You went right and ended up in \
-the throne room where the king sits"],
-                        "options": ["back"]
-                       }
+
+rooms = {
+    "Main Hall": "In front of you is a long hall with expensive paintings and\
+a long red carpet.",
+    "Kitchen": "Now you're in the kitchen of the castle, it smells great",
+    "Kings Room": "You are in the kings room where he sleeps, hes not here",
+    "Dinning Room":"Now you're in the dinning room where the king eats",
+    "Throne Room":"You ended up in the throne room where the king sits"
         }
+room_location = {
+    "Main Hall": (),
+    "Kitchen": (),
+    "Kings Room": (),
+    "Dinning Room": (),
+    "Throne Room": ()
+}
 #---functions-----------------------------------------------------------------
 def intro():
     print("You wake up in an unfamiliar place, with a strange woman beside \
