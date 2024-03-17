@@ -21,12 +21,22 @@ a long red carpet.",
     "Dinning Room":"Now you're in the dinning room where the king eats",
     "Throne Room":"You ended up in the throne room where the king sits"
         }
+
 room_location = {
-    "Main Hall": (),
-    "Kitchen": (),
-    "Kings Room": (),
-    "Dinning Room": (),
-    "Throne Room": ()
+    "Main Hall": (0,0),
+    "Kitchen": (0,-1),
+    "Kings Room": (1,-1),
+    "Dinning Room": (0,-2),
+    "Throne Room": (1,0)
+}
+
+starting_location = "Main Hall" #staring position
+
+directions = {
+    "north": (0,1),
+    "south": (0.-1),
+    "east": (1,0),
+    "west": (-1,0)
 }
 #---functions-----------------------------------------------------------------
 def intro():
