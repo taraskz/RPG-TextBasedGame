@@ -73,7 +73,17 @@ and put an end to his evil deeds.")
 
 def menu():
     print("***You wake up***")
-        
+    show_room_location()
+    print("Here are your movement options:")
+    for direction in directions:
+        print(f"{direction}")
+    direction = input("Choose: ").lower()
+    if direction in directions:
+        move(direction)
+    else:
+        print("Wrong direction.")
+    
+
 #---main----------------------------------------------------------------------
 #intro()
 menu()
