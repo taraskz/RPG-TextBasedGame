@@ -23,20 +23,21 @@ rooms = {
         }
 
 room_location = {
-    "Main Hall": (0,0),
-    "Kitchen": (0,-1),
-    "Kings Room": (1,-1),
-    "Dinning Room": (0,-2),
-    "Throne Room": (1,0)
+    "Main Hall": (0,0), # start
+    "Kitchen": (0,-1), # one down
+    "Kings Room": (1,-1), # one down 1 right
+    "Dinning Room": (0,-2), # two down
+    "Throne Room": (1,0), # one right
+    "Bathroom": (2,0) # two right
 }
 
-current_location = "Main Hall" #staring position
+current_location = "Main Hall" #staring position is main hall
 
 directions = {
-    "north": (0,1),
-    "south": (0,-1),
-    "east": (1,0),
-    "west": (-1,0)
+    "north": (0,1), # up
+    "south": (0,-1), # down
+    "east": (1,0), # right
+    "west": (-1,0) # left
 }
 #---functions-----------------------------------------------------------------
 def show_room_location():
@@ -48,11 +49,12 @@ def movement(direction):
     new_x = room_location[current_location][0] + directions[direction][0] 
     new_y = room_location[current_location][1] + directions[direction][1] 
     new_location = (new_x, new_y)
+    # conditional branching 
     if new_location in room_location.values():
         current_location = next(room for room, index in room_location.items() 
                                 if index == new_location)
     else:
-        print("Unfortunetly you can't go there, try again")
+        print("You hit your head against the wall, try a different direction")
 
 
 def intro():
@@ -66,6 +68,7 @@ you\n")
 the evil king that reigns this kingdom. I need you to take this sword \
 and put an end to his evil deeds.\n")
     choice = input("Will you take the sword? Yes or no: ")
+    # conditional branching
     if choice == "yes":
         backpack["weapons"] = "magical sword"
         print("Great now close your eyes - the witch says\n")
@@ -76,14 +79,15 @@ and put an end to his evil deeds.\n")
 def menu():
     show_room_location()
     print("Here are your movement options:")
+    # conditional branching
     for direction in directions:
         print(f"{direction}")
     direction = input("Choose: ").lower()
     if direction in directions:
         movement(direction)
     else:
-        print("Wrong direction.")
-    
+        print("Please type the direction correctly")
+
 def game():
     intro()
     while True:
