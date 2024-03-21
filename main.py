@@ -67,6 +67,7 @@ you\n")
     print("You are the only person in this kingdom capable of defeating \
 the evil king that reigns this kingdom. I need you to take this sword \
 and put an end to his evil deeds.\n")
+    print("Type 'quit' to exit the game")
     choice = input("Will you take the sword? Yes or no: ")
     # conditional branching
     if choice == "yes":
@@ -74,23 +75,32 @@ and put an end to his evil deeds.\n")
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up***")
-    
+    else:
+      if choice == "quit":
+        print("Thanks for playing")
+        return intro()
+      
 
 def menu():
-    show_room_location()
-    print("Here are your movement options:")
-    # conditional branching
-    for direction in directions:
-        print(f"{direction}")
-    direction = input("Choose: ").lower()
-    if direction in directions:
-        movement(direction)
-    else:
-        print("Please type the direction correctly")
+    while True:
+        show_room_location()
+        print("Type 'quit' to exit the game")
+        print("Here are your movement options:")
+        # conditional branching
+        for direction in directions:
+            print(f"- {direction}")
+        direction = input("Choose: ").lower()
+        if direction in directions:
+            movement(direction)
+        if direction == 'quit':
+            print("Thanks for playing")
+            return False
+        if direction not in directions:
+          print("Please type the direction correctly")
+          
 
 def game():
     intro()
-    while True:
-        menu()
+    menu()
 #---main----------------------------------------------------------------------
 game()
