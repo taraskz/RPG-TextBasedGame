@@ -127,9 +127,24 @@ def export_map():
   finally:
       print("Good luck!")
 
+
+# print out the map to the console for the user to see
+def read_map():
+    try:
+        with open(mapfile, 'r') as file:
+          print(file.read())
+    except:
+        print("Something went wrong")
+    else:
+        print("Here is the map to the castle")
+    finally:
+        print("Good luck")
+
+
 # main game 
 def game():
     intro()
+    read_map()
     menu()
 #---main----------------------------------------------------------------------
 export_map()
