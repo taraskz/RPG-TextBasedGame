@@ -119,7 +119,7 @@ def export_map():
   # conditional branching
   try:
       with open(mapfile, 'w') as file:
-          file.write(tabulate(tiles, tablefmt = "fancy_grid"))
+          file.write(tabulate(tiles, tablefmt = "double_grid"))
   except: 
       print("Somethinf went wrong")
   else: 
