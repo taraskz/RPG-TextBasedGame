@@ -3,7 +3,7 @@
 # Class: CS 30
 # Date: March 13, 2024
 # Coders: Taras K
-# Version: 002
+# Version: 002.1
 ##############################################################################
 '''This program is a text based game where the user gets to be a hero and move
    around a castle in order to eventually kill the evil king and save everyone
@@ -11,6 +11,8 @@
    '''
 ##############################################################################
 #---imports and global variables----------------------------------------------
+from tabulate import tabulate
+
 backpack = {}
 
 rooms = {
@@ -19,7 +21,9 @@ rooms = {
     "Kitchen": "Now you're in the kitchen of the castle, it smells great",
     "Kings Room": "You are in the kings room where he sleeps, hes not here",
     "Dinning Room":"Now you're in the dinning room where the king eats",
-    "Throne Room":"You ended up in the throne room where the king sits"
+    "Throne Room":"You ended up in the throne room where the king sits",
+    "Bathroom": "You are in the bathroom where the king does his buisness",
+    "Weapon Storage": "You are in the weapon storage room"
         }
 
 room_location = {
@@ -28,7 +32,8 @@ room_location = {
     "Kings Room": (1,-1), # one down 1 right
     "Dinning Room": (0,-2), # two down
     "Throne Room": (1,0), # one right
-    "Bathroom": (2,0) # two right
+    "Bathroom": (2,0), # two right
+    "Weapon Storage": ()
 }
 
 current_location = "Main Hall" #staring position is main hall
@@ -39,6 +44,24 @@ directions = {
     "east": (1,0), # right
     "west": (-1,0) # left
 }
+
+# converting rooms into tiles to use in external file 
+tile = ["Main Hall", "Kitchen",
+  "Kings Room","Dinning Room",
+  "Throne Room","Bathroom",
+  "Hallway","Weapon Storage"
+ ]
+
+# tile location on the map
+tiles = [
+   [tile[0],tile[5],tile[2]],
+   [tile[1],tile[6],tile[4]],
+   [tile[6],tile[3],tile[7]]
+   ]
+
+# external file name 
+mapfile = 'map.txt'
+
 #---functions-----------------------------------------------------------------
 def show_room_location():
     print(rooms[current_location]) # prints the location of the player
@@ -75,10 +98,6 @@ and put an end to his evil deeds.\n")
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up***")
-    else:
-      if choice == "quit":
-        print("Thanks for playing")
-        return intro()
       
 
 def menu():
@@ -97,10 +116,23 @@ def menu():
             return False
         if direction not in directions:
           print("Please type the direction correctly")
-          
+
+# creates map in an external file
+def export_map():
+  try:
+      with open(mapfile, 'w') as file:
+          file.write(tabulate(tiles, tablefmt = "fancy_grid"))
+  except: 
+      print("Somethinf went wrong")
+  else: 
+      print("Here is the map to the castle")
+  finally:
+      print("Good luck!")
+
 
 def game():
     intro()
+    export_map()
     menu()
 #---main----------------------------------------------------------------------
 game()
