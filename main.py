@@ -23,17 +23,15 @@ rooms = {
     "Dinning Room":"Now you're in the dinning room where the king eats",
     "Throne Room":"You ended up in the throne room where the king sits",
     "Bathroom": "You are in the bathroom where the king does his buisness",
-    "Weapon Storage": "You are in the weapon storage room"
+    "Weapon Storage": "You are in the weapon storage room",
+    "Hallway_1": "You are in a hallway",
+    "Hallway_2": "You are in a hallway"
         }
 
 room_location = {
-    "Main Hall": (0,0), # start
-    "Kitchen": (0,-1), # one down
-    "Kings Room": (1,-1), # one down 1 right
-    "Dinning Room": (0,-2), # two down
-    "Throne Room": (1,0), # one right
-    "Bathroom": (2,0), # two right
-    "Weapon Storage": ()
+    "Main Hall": (0,0),"Bathroom": (1,0),"Kings Room": (2,0),
+    "Kitchen": (0,-1),"Hallway_2": (1,-1),"Throne Room": (2,-1), 
+    "Hallway_1": (0,-2),"Dinning Room": (1,-2),"Weapon Storage": (2,-2),
 }
 
 current_location = "Main Hall" #staring position is main hall
@@ -46,17 +44,16 @@ directions = {
 }
 
 # converting rooms into tiles to use in external file 
-tile = ["Main Hall", "Kitchen",
-  "Kings Room","Dinning Room",
-  "Throne Room","Bathroom",
-  "Hallway","Weapon Storage"
+tile = ["Main Hall", "Kitchen","Kings Room","Dinning Room",
+  "Throne Room","Bathroom","Weapon Storage", "Hallway_1",
+  "Hallway_2"
  ]
 
 # tile location on the map
 tiles = [
    [tile[0],tile[5],tile[2]],
-   [tile[1],tile[6],tile[4]],
-   [tile[6],tile[3],tile[7]]
+   [tile[1],tile[8],tile[4]],
+   [tile[7],tile[3],tile[6]]
    ]
 
 # external file name 
@@ -79,7 +76,7 @@ def movement(direction):
     else:
         print("You hit your head against the wall, try a different direction")
 
-
+# the intro to the game
 def intro():
     global backpack
     print("You wake up in an unfamiliar place, with a strange woman beside \
@@ -99,7 +96,7 @@ and put an end to his evil deeds.\n")
         print("***You close your eyes***")
         print("***You wake up***")
       
-
+# main game menu
 def menu():
     while True:
         show_room_location()
@@ -119,20 +116,21 @@ def menu():
 
 # creates map in an external file
 def export_map():
+  # conditional branching
   try:
       with open(mapfile, 'w') as file:
           file.write(tabulate(tiles, tablefmt = "fancy_grid"))
   except: 
       print("Somethinf went wrong")
   else: 
-      print("Here is the map to the castle")
+      print("Here is the map of the castle")
   finally:
       print("Good luck!")
 
-
+# main game 
 def game():
     intro()
-    export_map()
     menu()
 #---main----------------------------------------------------------------------
+export_map()
 game()
