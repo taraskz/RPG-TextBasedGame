@@ -101,7 +101,8 @@ def menu():
     while True:
         read_map()
         show_room_location()
-        print("Type 'quit' to exit the game")
+        print("Type 'quit' to exit the game\n")
+        print("Type 'inventory' to see your inventory\n")
         print("Here are your movement options:")
         # conditional branching
         for direction in directions:
@@ -115,10 +116,15 @@ def menu():
         if direction not in directions:
           print("Please type the direction correctly")
 
-
 def sub_menu():
+    print()
+    
+
+def print_backpack():
     global backpack
+    print("Here is what's in your backpack")
     print(f"weapons: {backpack['weapons']}")
+    
     
   
 # creates map in an external file
@@ -151,8 +157,7 @@ def read_map():
 # main game 
 def game():
     intro()
-    #menu()
-    sub_menu()
+    menu()
 #---main----------------------------------------------------------------------
 export_map()
 game()
