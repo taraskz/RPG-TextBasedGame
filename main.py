@@ -3,7 +3,7 @@
 # Class: CS 30
 # Date: March 13, 2024
 # Coders: Taras K
-# Version: 002.1
+# Version: 003
 ##############################################################################
 '''This program is a text based game where the user gets to be a hero and move
    around a castle in order to eventually kill the evil king and save everyone
@@ -99,6 +99,7 @@ and put an end to his evil deeds.\n")
 # main game menu
 def menu():
     while True:
+        read_map()
         show_room_location()
         print("Type 'quit' to exit the game")
         print("Here are your movement options:")
@@ -114,6 +115,12 @@ def menu():
         if direction not in directions:
           print("Please type the direction correctly")
 
+
+def sub_menu():
+    global backpack
+    print(f"weapons: {backpack['weapons']}")
+    
+  
 # creates map in an external file
 def export_map():
   # conditional branching
@@ -144,8 +151,8 @@ def read_map():
 # main game 
 def game():
     intro()
-    read_map()
-    menu()
+    #menu()
+    sub_menu()
 #---main----------------------------------------------------------------------
 export_map()
 game()
