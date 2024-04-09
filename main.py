@@ -58,7 +58,7 @@ tiles = [
 
 # external file name 
 mapfile = 'map.txt'
-
+inventory = 'inv.txt'
 #---functions-----------------------------------------------------------------
 def show_room_location():
     print(rooms[current_location]) # prints the location of the player
@@ -92,6 +92,7 @@ and put an end to his evil deeds.\n")
     # conditional branching
     if choice == "yes":
         backpack["weapons"] = "magical sword"
+        read_inv()
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up***")
@@ -121,7 +122,7 @@ def sub_menu():
     if current_location in rooms:
         print("There is something on the ground")
 
-  
+
 # creates map in an external file
 def export_map():
     # conditional branching
@@ -150,6 +151,28 @@ def read_map():
         print("Good luck")
 
 
+def export_inv():
+    try:
+      with open(inventory, 'w') as file:
+          file.write(backpack)
+    except:
+          print("Something went wrong")
+    else:
+        print("Here is your inventory")
+    finally: 
+       print("Good luck")
+
+def read_inv():
+    try:
+        with open(inventory, 'r') as file:
+            print(file.read())
+    except:
+        print("Something went wrong")
+    else:
+        print("Here is your inventory")
+    finally: 
+        print("Good luck")
+      
 # main game 
 def game():
     intro()
