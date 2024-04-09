@@ -116,33 +116,29 @@ def menu():
         if direction not in directions:
           print("Please type the direction correctly")
 
-def sub_menu():
-    print()
-    
 
-def print_backpack():
-    global backpack
-    print("Here is what's in your backpack")
-    print(f"weapons: {backpack['weapons']}")
-    
-    
+def sub_menu():
+    if current_location in rooms:
+        print("There is something on the ground")
+
   
 # creates map in an external file
 def export_map():
-  # conditional branching
-  try:
-      with open(mapfile, 'w') as file:
-          file.write(tabulate(tiles, tablefmt = "double_grid"))
-  except: 
-      print("Somethinf went wrong")
-  else: 
-      print("Here is the map of the castle")
-  finally:
-      print("Good luck!")
+    # conditional branching
+    try:
+        with open(mapfile, 'w') as file:
+            file.write(tabulate(tiles, tablefmt = "double_grid"))
+    except:
+        print("Somethinf went wrong")
+    else:
+        print("Here is the map of the castle")
+    finally:
+        print("Good luck!")
 
 
 # print out the map to the console for the user to see
 def read_map():
+    # conditional branching 
     try:
         with open(mapfile, 'r') as file:
           print(file.read())
@@ -159,5 +155,4 @@ def game():
     intro()
     menu()
 #---main----------------------------------------------------------------------
-export_map()
 game()
