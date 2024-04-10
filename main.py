@@ -101,6 +101,7 @@ and put an end to his evil deeds.\n")
 def menu():
     while True:
         read_map()
+        read_inv()
         show_room_location()
         print("Type 'quit' to exit the game\n")
         print("Type 'inventory' to see your inventory\n")
@@ -120,7 +121,7 @@ def menu():
 
 def sub_menu():
     if current_location in rooms:
-        print("There is something on the ground")
+        print("Check this room for loot")
 
 
 # creates map in an external file
@@ -152,11 +153,12 @@ def read_map():
 
 
 def export_inv():
+    global backpack
     try:
-      with open(inventory, 'w') as file:
-          file.write(backpack)
+        with open(inventory, 'a') as file:
+            file.write(str(backpack))
     except:
-          print("Something went wrong")
+        print("Something went wrong")
     else:
         print("Here is your inventory")
     finally: 
@@ -179,3 +181,4 @@ def game():
     menu()
 #---main----------------------------------------------------------------------
 game()
+
