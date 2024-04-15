@@ -15,6 +15,18 @@ from tabulate import tabulate
 
 backpack = {}
 
+
+# for picking up items in rooms 
+def pickup(item):
+    backpack[item] = True
+
+
+# reads the contents of the inventory to the user
+def view_inv():
+    print("Inventory:")
+    for item in backpack:
+        print("-", item)
+
 rooms = {
     "Main Hall": "In front of you is a long hall with expensive paintings and\
  a long red carpet.",
@@ -91,8 +103,8 @@ and put an end to his evil deeds.\n")
     choice = input("Will you take the sword? Yes or no: ")
     # conditional branching
     if choice == "yes":
-        backpack["weapons"] = "magical sword"
-        read_inv()
+        pickup("magical sword")
+        export_inv()
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up***")
@@ -112,10 +124,12 @@ def menu():
         direction = input("Choose: ").lower()
         if direction in directions:
             movement(direction)
-        if direction == 'quit':
+        elif direction == 'inventory':
+            view_inv()
+        elif direction == 'quit':
             print("Thanks for playing")
             return False
-        if direction not in directions:
+        elif direction not in directions:
           print("Please type the direction correctly")
 
 
@@ -153,32 +167,35 @@ def read_map():
 
 
 def export_inv():
-    global backpack
     try:
-        with open(inventory, 'a') as file:
-            file.write(str(backpack))
+        with open(inventory, 'w') as f:
+            for item in backpack:
+                f.write(item + '\n')
     except:
         print("Something went wrong")
     else:
         print("Here is your inventory")
     finally: 
-       print("Good luck")
+       print("Good luck..")
 
 def read_inv():
     try:
-        with open(inventory, 'r') as file:
-            print(file.read())
+        with open(inventory, 'r') as f:
+            for line in f:
+                item = line.strip()
+                backpack[item] = True
     except:
         print("Something went wrong")
     else:
-        print("Here is your inventory")
+        print(" ")
     finally: 
-        print("Good luck")
+        print(" ")
       
 # main game 
 def game():
     intro()
     menu()
 #---main----------------------------------------------------------------------
+export_inv()
 game()
 
