@@ -16,6 +16,13 @@ from tabulate import tabulate
 backpack = {}
 
 
+chests = {
+    "Main Hall": ["health potion"],
+    "Kitchen": ["kitchen knife", "apple"],
+    "Kings Room": ["ancient royal sword"]
+          }
+
+
 # for picking up items in rooms 
 def pickup(item):
     backpack[item] = True
@@ -108,13 +115,33 @@ and put an end to his evil deeds.\n")
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up***")
-      
+
+
+def check_for_chest():
+  # sub menu for checking if there is a chest in area and pick up items
+    if current_location in chests:
+        inside_chest = chests[current_location]
+        if inside_chest:
+          print("You found a chest")
+          for item in inside_chest:
+              print(f"- {item}")
+          pickup_item = input("Do you want to loot the chest? Yes or no: ")
+          if pickup_item.lower() == "yes":
+              pickup(item)
+          # removing items from the chest
+          chests[current_location].clear()
+          print("The item is in your inventory")
+        else:
+          print("You left the chest alone")
+
+
 # main game menu
 def menu():
     while True:
-        read_map()
+        read_map() #prints map
         read_inv()
-        show_room_location()
+        show_room_location() # prints current location
+        check_for_chest()
         print("Type 'quit' to exit the game\n")
         print("Type 'inventory' to see your inventory\n")
         print("Here are your movement options:")
@@ -131,11 +158,6 @@ def menu():
             return False
         elif direction not in directions:
           print("Please type the direction correctly")
-
-
-def sub_menu():
-    if current_location in rooms:
-        print("Check this room for loot")
 
 
 # creates map in an external file
