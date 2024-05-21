@@ -3,7 +3,7 @@
 # Class: CS 30
 # Date: March 13, 2024
 # Coders: Taras K
-# Version: 003
+# Version: 004
 ##############################################################################
 '''This program is a text based game where the user gets to be a hero and move
    around a castle in order to eventually kill the evil king and save everyone
@@ -13,7 +13,45 @@
 #---imports and global variables----------------------------------------------
 from tabulate import tabulate
 
-backpack = {}
+class Inventory:
+    def __init__(self):
+        self.backpack = {}
+        self.inventory_file = 'inv.txt'
+
+    def pickup(self, item):
+        self.backpack[item] = True
+
+    def view(self):
+        print("Inventory:")
+        for item in self.backpack:
+            print("-", item)
+
+    def export(self):
+        try:
+            with open(self.inventory_file, 'w') as f:
+                for item in self.backpack:
+                    f.write(item + '\n')
+        except:
+            print("Something went wrong")
+        else:
+            print("Here you go!!!")
+        finally:
+            print("Good luck...")
+
+    def read(self):
+        try:
+            with open(self.inventory_file, 'r') as f:
+                for line in f:
+                    item = line.strip()
+                    self.backpack[item] = True
+        except:
+            print("Something went wrong")
+        else:
+            print("Here you go!!!")
+        finally:
+            print("Good luck...")
+
+inventory = Inventory()
 
 
 chests = {
@@ -22,17 +60,6 @@ chests = {
     "Kings Room": ["ancient royal sword"]
           }
 
-
-# for picking up items in rooms 
-def pickup(item):
-    backpack[item] = True
-
-
-# reads the contents of the inventory to the user
-def view_inv():
-    print("Inventory:")
-    for item in backpack:
-        print("-", item)
 
 rooms = {
     "Main Hall": "In front of you is a long hall with expensive paintings and\
@@ -47,13 +74,16 @@ rooms = {
     "Hallway_2": "You are in a hallway"
         }
 
+
 room_location = {
     "Main Hall": (0,0),"Bathroom": (1,0),"Kings Room": (2,0),
     "Kitchen": (0,-1),"Hallway_2": (1,-1),"Throne Room": (2,-1), 
     "Hallway_1": (0,-2),"Dinning Room": (1,-2),"Weapon Storage": (2,-2),
 }
 
+
 current_location = "Main Hall" #staring position is main hall
+
 
 directions = {
     "north": (0,1), # up
@@ -62,11 +92,13 @@ directions = {
     "west": (-1,0) # left
 }
 
+
 # converting rooms into tiles to use in external file 
 tile = ["Main Hall", "Kitchen","Kings Room","Dinning Room",
   "Throne Room","Bathroom","Weapon Storage", "Hallway_1",
   "Hallway_2"
  ]
+
 
 # tile location on the map
 tiles = [
@@ -75,9 +107,9 @@ tiles = [
    [tile[7],tile[3],tile[6]]
    ]
 
+
 # external file name 
 mapfile = 'map.txt'
-inventory = 'inv.txt'
 #---functions-----------------------------------------------------------------
 def show_room_location():
     print(rooms[current_location]) # prints the location of the player
@@ -110,8 +142,8 @@ and put an end to his evil deeds.\n")
     choice = input("Will you take the sword? Yes or no: ")
     # conditional branching
     if choice == "yes":
-        pickup("magical sword")
-        export_inv()
+        inventory.pickup("magical sword")
+        inventory.export()
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up***")
@@ -122,28 +154,29 @@ def check_for_chest():
     if current_location in chests:
         inside_chest = chests[current_location]
         if inside_chest:
-          print("You found a chest")
-          for item in inside_chest:
-              print(f"- {item}")
-          pickup_item = input("Do you want to loot the chest? Yes or no: ")
-          if pickup_item.lower() == "yes":
-              pickup(item)
-          # removing items from the chest
-          chests[current_location].clear()
-          print("The item is in your inventory")
+            print("You found a chest")
+            for item in inside_chest:
+                print(f"- {item}")
+            pickup_item = input("Do you want to loot the chest? Yes or no: ")
+            if pickup_item.lower() == "yes":
+                inventory.pickup(item)
+            # removing items from the chest
+            chests[current_location].clear()
+            print("The item is in your inventory")
         else:
-          print("You left the chest alone")
+            print("You left the chest alone")
 
 
 # main game menu
 def menu():
     while True:
-        read_map() #prints map
-        read_inv()
+        #read_map() #prints map
+        inventory.read()
         show_room_location() # prints current location
         check_for_chest()
         print("Type 'quit' to exit the game\n")
         print("Type 'inventory' to see your inventory\n")
+        print("Type 'map' to view map")
         print("Here are your movement options:")
         # conditional branching
         for direction in directions:
@@ -152,7 +185,9 @@ def menu():
         if direction in directions:
             movement(direction)
         elif direction == 'inventory':
-            view_inv()
+            inventory.view()
+        elif direction == 'map':
+            read_map()
         elif direction == 'quit':
             print("Thanks for playing")
             return False
@@ -171,7 +206,7 @@ def export_map():
     else:
         print("Here is the map of the castle")
     finally:
-        print("Good luck!")
+        print("Good luck...")
 
 
 # print out the map to the console for the user to see
@@ -185,39 +220,13 @@ def read_map():
     else:
         print("Here is the map to the castle")
     finally:
-        print("Good luck")
+        print("Good luck...")
 
 
-def export_inv():
-    try:
-        with open(inventory, 'w') as f:
-            for item in backpack:
-                f.write(item + '\n')
-    except:
-        print("Something went wrong")
-    else:
-        print("Here is your inventory")
-    finally: 
-       print("Good luck..")
-
-def read_inv():
-    try:
-        with open(inventory, 'r') as f:
-            for line in f:
-                item = line.strip()
-                backpack[item] = True
-    except:
-        print("Something went wrong")
-    else:
-        print(" ")
-    finally: 
-        print(" ")
-      
 # main game 
 def game():
     intro()
     menu()
 #---main----------------------------------------------------------------------
-export_inv()
 game()
 
