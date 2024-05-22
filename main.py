@@ -13,9 +13,10 @@
 #---imports and global variables----------------------------------------------
 from inventory import Inventory
 from tabulate import tabulate
+from player import Player
 
 inventory = Inventory()
-
+player = Player(name="Hero")
 
 chests = {
     "Main Hall": ["health potion"],
@@ -111,6 +112,7 @@ and put an end to his evil deeds.\n")
     if choice == "yes":
         inventory.pickup("magical sword")
         inventory.export()
+        player.add_ability("swordsmanship")
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up in an unfamiliar castle***")
@@ -145,8 +147,9 @@ def menu():
         check_for_chest() # checks if there is chest in a room
         print("Type 'quit' to exit the game\n")
         print("Type 'inventory' to see your inventory\n")
-        print("Type 'map' to view map")
-        print("Here are your movement options:")
+        print("Type 'abilities' to see your abilities\n")
+        print("Type 'map' to view map\n")
+        print("Here are your movement options:\n")
         # conditional branching
         for direction in directions:
             print(f"- {direction}")
@@ -155,13 +158,15 @@ def menu():
             movement(direction)
         elif direction == 'inventory':
             inventory.view()
+        elif direction == 'abilities':
+            player.view_abilities()
         elif direction == 'map':
             read_map()
         elif direction == 'quit':
             print("Thanks for playing")
             return False
         elif direction not in directions:
-          print("Please type the direction correctly")
+          print("Please type the direction/action correctly")
 
 
 # creates map in an external file
@@ -174,7 +179,7 @@ def export_map():
         with open(mapfile, 'w') as file:
             file.write(tabulate(tiles, tablefmt = "double_grid"))
     except:
-        print("Somethinf went wrong")
+        print("Something went wrong")
     else:
         print("Here is the map of the castle")
     finally:
