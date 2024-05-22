@@ -7,6 +7,7 @@ class Inventory:
   def pickup(self, item):
       '''This function puts items into the backpack list'''
       self.backpack[item] = True
+      self.export()
 
   def view(self):
       '''This function prints the inventory'''
@@ -23,9 +24,9 @@ class Inventory:
       except:
           print("Something went wrong")
       else:
-          print("Here you go!!!")
+          print("Here you go!!!\n")
       finally:
-          print("Good luck...")
+          print("Good luck...\n")
 
   def read(self):
       '''This function prints out the inventory'''
@@ -37,6 +38,6 @@ class Inventory:
       except:
           print("Something went wrong")
       else:
-          print("Here you go!!!")
+          print("Here you go!!!\n")
       finally:
-          print("Good luck...")
+          print("Good luck...\n")

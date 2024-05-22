@@ -17,7 +17,7 @@ from player import Player
 from enemy import EvilKing
 
 inventory = Inventory()
-player = Player(name="Hero")
+player = Player(name = "Hero")
 evil_king = EvilKing()
 
 chests = {
@@ -29,15 +29,15 @@ chests = {
 
 rooms = {
     "Main Hall": "You ate in the main hall, in front of you is a long hall with \
-expensive paintings and a long red carpet.",
-    "Kitchen": "Now you're in the kitchen of the castle, it smells great",
-    "Kings Room": "You are in the kings room where he sleeps, hes not here",
-    "Dinning Room":"Now you're in the dinning room where the king eats",
-    "Throne Room":"You ended up in the throne room where the king sits",
-    "Bathroom": "You are in the bathroom where the king does his buisness",
-    "Weapon Storage": "You are in the weapon storage room",
-    "Hallway_1": "You are in a hallway",
-    "Hallway_2": "You are in a hallway"
+expensive paintings and a long red carpet.\n",
+    "Kitchen": "Now you're in the kitchen of the castle, it smells great\n",
+    "Kings Room": "You are in the kings room where he sleeps, hes not here\n",
+    "Dinning Room":"Now you're in the dinning room where the king eats\n",
+    "Throne Room":"You ended up in the throne room where the king sits\n",
+    "Bathroom": "You are in the bathroom where the king does his buisness\n",
+    "Weapon Storage": "You are in the weapon storage room\n",
+    "Hallway_1": "You are in a hallway\n",
+    "Hallway_2": "You are in a hallway\n"
         }
 
 
@@ -159,14 +159,15 @@ def encounter_evil_king():
             evil_king.take_damage(damage)
             print(f"You attacked the Evil King and dealt {damage} damage")
             if evil_king.is_alive():
-                print(f"The Evil King has {evil_king.health} remaining health\n")
+                print(f"The Evil King has {evil_king.health} remaining \
+health\n")
                 player_damage = 20
                 player.take_damage(player_damage)
                 print(f"The Evil King attacked back and dealt {player_damage} \
 damage")
                 print(f"You have {player.health} health remaining\n")
             else:
-                print("Congrts you have defeated the Evil King and saved \
+                print("Congrats you have defeated the Evil King and saved \
 the kingdom!!!!")
                 exit_game()
 
@@ -179,14 +180,14 @@ the kingdom!!!!")
             
     if not player.is_alive():
         print("You got defeated by the Evil King... Game over!!!")
-        exit()
+        exit_game()
 
 
 # main game menu
 def menu():
     '''This function is the main menu where the player chooses the action
-       they want to perform like walk, look at the map or inventory
-       '''
+        they want to perform like walk, look at the map or inventory
+        '''
     while True:
         inventory.read()
         show_room_location() # prints current location
@@ -218,8 +219,8 @@ def menu():
 # creates map in an external file
 def export_map():
     '''This function creates the map of the game so that the player can view
-       it later
-       '''
+        it later
+        '''
     # conditional branching
     try:
         with open(mapfile, 'w') as file:
@@ -249,8 +250,8 @@ def read_map():
 
 def exit_game():
     '''This function runs when the evil king is defeated and it ends 
-    the game
-    '''
+        the game
+        '''
     print("Thanks for playing and saving the kingdom. The game is over now")
     exit()
 
