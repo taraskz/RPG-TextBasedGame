@@ -14,9 +14,11 @@
 from inventory import Inventory
 from tabulate import tabulate
 from player import Player
+from enemy import EvilKing
 
 inventory = Inventory()
 player = Player(name="Hero")
+evil_king = EvilKing()
 
 chests = {
     "Main Hall": ["health potion"],
@@ -26,8 +28,8 @@ chests = {
 
 
 rooms = {
-    "Main Hall": "In front of you is a long hall with expensive paintings and\
- a long red carpet.",
+    "Main Hall": "You ate in the main hall, in front of you is a long hall with \
+expensive paintings and a long red carpet.",
     "Kitchen": "Now you're in the kitchen of the castle, it smells great",
     "Kings Room": "You are in the kings room where he sleeps, hes not here",
     "Dinning Room":"Now you're in the dinning room where the king eats",
@@ -91,6 +93,8 @@ def movement(direction):
     if new_location in room_location.values():
         current_location = next(room for room, index in room_location.items()
                                 if index == new_location)
+        if current_location == "Throne Room":
+            encounter_evil_king()
     else:
         print("You hit your head against the wall try a different direction")
 
@@ -116,6 +120,10 @@ and put an end to his evil deeds.\n")
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up in an unfamiliar castle***")
+    else:
+        print("You refused the sword. Next time accept it, the game \
+will now end")
+        exit_game()
 
 
 def check_for_chest():
@@ -128,12 +136,50 @@ def check_for_chest():
                 print(f"- {item}")
             pickup_item = input("Do you want to loot the chest? Yes or no: ")
             if pickup_item.lower() == "yes":
-                inventory.pickup(item)
-            # removing items from the chest
-            chests[current_location].clear()
-            print("The item is in your inventory")
+                for item in inside_chest:
+                    inventory.pickup(item)
+                # removing items from the chest
+                chests[current_location].clear()
+                print("The item is in your inventory")
+            else:
+                print("You left the chest alone")
         else:
             print("You left the chest alone")
+
+
+def encounter_evil_king():
+    '''This function creates a fight with the evil king when the player 
+        encounters him
+        '''
+    print(f"You entered {current_location}. the Evil King whats to fight you")
+    while player.is_alive() and evil_king.is_alive():
+        action = input("Do you want to 'attack' or 'run':\n").lower()
+        if action == 'attack':
+            damage = 50
+            evil_king.take_damage(damage)
+            print(f"You attacked the Evil King and dealt {damage} damage")
+            if evil_king.is_alive():
+                print(f"The Evil King has {evil_king.health} remaining health\n")
+                player_damage = 20
+                player.take_damage(player_damage)
+                print(f"The Evil King attacked back and dealt {player_damage} \
+damage")
+                print(f"You have {player.health} health remaining\n")
+            else:
+                print("Congrts you have defeated the Evil King and saved \
+the kingdom!!!!")
+                exit_game()
+
+        elif action == 'run':
+            print("You ran away!!")
+            movement("south")
+            return
+        else:
+            print("Invalid action type it property")
+            
+    if not player.is_alive():
+        print("You got defeated by the Evil King... Game over!!!")
+        exit()
 
 
 # main game menu
@@ -199,6 +245,14 @@ def read_map():
         print("Here is the map to the castle")
     finally:
         print("Good luck...")
+
+
+def exit_game():
+    '''This function runs when the evil king is defeated and it ends 
+    the game
+    '''
+    print("Thanks for playing and saving the kingdom. The game is over now")
+    exit()
 
 
 # main game 
