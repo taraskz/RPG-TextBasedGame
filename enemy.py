@@ -1,5 +1,5 @@
 class EvilKing:
-    def __init__(self, name = "Evil King", health = 100):
+    def __init__(self, name = "Evil King", health = 150):
         '''This function creates the evil king enemy'''
         self.name = name
         self.health = health

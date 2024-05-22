@@ -28,7 +28,7 @@ chests = {
 
 
 rooms = {
-    "Main Hall": "You ate in the main hall, in front of you is a long hall with \
+    "Main Hall": "You are in the main hall, in front of you is a long hall with \
 expensive paintings and a long red carpet.\n",
     "Kitchen": "Now you're in the kitchen of the castle, it smells great\n",
     "Kings Room": "You are in the kings room where he sleeps, hes not here\n",
@@ -117,7 +117,8 @@ and put an end to his evil deeds.\n")
         inventory.pickup("magical sword")
         inventory.export()
         player.add_ability("swordsmanship")
-        print("Great now close your eyes - the witch says\n")
+        print("Great with this you have a 'swordsmanship' ability\n")
+        print("Now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up in an unfamiliar castle***")
     else:
@@ -153,16 +154,17 @@ def encounter_evil_king():
         '''
     print(f"You entered {current_location}. the Evil King whats to fight you")
     while player.is_alive() and evil_king.is_alive():
-        action = input("Do you want to 'attack' or 'run':\n").lower()
+        action = input("Do you want to 'attack', 'run' or use 'ability \
+':\n").lower()
         if action == 'attack':
-            damage = 50
+            damage = 50 # the king takes damage
             evil_king.take_damage(damage)
             print(f"You attacked the Evil King and dealt {damage} damage")
             if evil_king.is_alive():
                 print(f"The Evil King has {evil_king.health} remaining \
 health\n")
-                player_damage = 20
-                player.take_damage(player_damage)
+                player_damage = 20 # player takes damage
+                player.take_damage(player_damage) 
                 print(f"The Evil King attacked back and dealt {player_damage} \
 damage")
                 print(f"You have {player.health} health remaining\n")
@@ -170,13 +172,29 @@ damage")
                 print("Congrats you have defeated the Evil King and saved \
 the kingdom!!!!")
                 exit_game()
-
         elif action == 'run':
             print("You ran away!!")
             movement("south")
             return
+        elif action == 'ability':
+            damage = 70
+            evil_king.take_damage(damage)
+            print(f"You used your ability and dealt {damage} damage")
+            if evil_king.is_alive():
+                print(f"The Evil King has {evil_king.health} remaining \
+health\n")
+                player_damage = 20
+                player.take_damage(player_damage)
+                print(f"The Evil King attacked back and dealt \
+{player_damage} damage")
+                print(f"You have {player.health} health remaining\n")
+            else:
+                print("Congrats you have defeated the Evil King and saved \
+the kingdom!!!!")
+                exit_game()
         else:
-            print("Invalid action type it property")
+            print("Invalid action type it property 'attack', 'run', or \
+'ability'")
             
     if not player.is_alive():
         print("You got defeated by the Evil King... Game over!!!")
