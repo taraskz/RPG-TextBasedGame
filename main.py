@@ -11,45 +11,8 @@
    '''
 ##############################################################################
 #---imports and global variables----------------------------------------------
+from inventory import Inventory
 from tabulate import tabulate
-
-class Inventory:
-    def __init__(self):
-        self.backpack = {}
-        self.inventory_file = 'inv.txt'
-
-    def pickup(self, item):
-        self.backpack[item] = True
-
-    def view(self):
-        print("Inventory:")
-        for item in self.backpack:
-            print("-", item)
-
-    def export(self):
-        try:
-            with open(self.inventory_file, 'w') as f:
-                for item in self.backpack:
-                    f.write(item + '\n')
-        except:
-            print("Something went wrong")
-        else:
-            print("Here you go!!!")
-        finally:
-            print("Good luck...")
-
-    def read(self):
-        try:
-            with open(self.inventory_file, 'r') as f:
-                for line in f:
-                    item = line.strip()
-                    self.backpack[item] = True
-        except:
-            print("Something went wrong")
-        else:
-            print("Here you go!!!")
-        finally:
-            print("Good luck...")
 
 inventory = Inventory()
 
@@ -112,23 +75,27 @@ tiles = [
 mapfile = 'map.txt'
 #---functions-----------------------------------------------------------------
 def show_room_location():
-    print(rooms[current_location]) # prints the location of the player
+    '''This function prints the current location of the player after each move
+    '''
+    print(rooms[current_location]) 
 
 
 def movement(direction):
+    '''This function handles the movement input of the player'''
     global current_location
     new_x = room_location[current_location][0] + directions[direction][0] 
     new_y = room_location[current_location][1] + directions[direction][1] 
     new_location = (new_x, new_y)
     # conditional branching 
     if new_location in room_location.values():
-        current_location = next(room for room, index in room_location.items() 
+        current_location = next(room for room, index in room_location.items()
                                 if index == new_location)
     else:
-        print("You hit your head against the wall, try a different direction")
+        print("You hit your head against the wall try a different direction")
 
 # the intro to the game
 def intro():
+    '''This function prints all the info for the introduction of the game'''
     global backpack
     print("You wake up in an unfamiliar place, with a strange woman beside \
 you\n")
@@ -146,7 +113,7 @@ and put an end to his evil deeds.\n")
         inventory.export()
         print("Great now close your eyes - the witch says\n")
         print("***You close your eyes***")
-        print("***You wake up***")
+        print("***You wake up in an unfamiliar castle***")
 
 
 def check_for_chest():
@@ -169,11 +136,13 @@ def check_for_chest():
 
 # main game menu
 def menu():
+    '''This function is the main menu where the player chooses the action
+       they want to perform like walk, look at the map or inventory
+       '''
     while True:
-        #read_map() #prints map
         inventory.read()
         show_room_location() # prints current location
-        check_for_chest()
+        check_for_chest() # checks if there is chest in a room
         print("Type 'quit' to exit the game\n")
         print("Type 'inventory' to see your inventory\n")
         print("Type 'map' to view map")
@@ -197,6 +166,9 @@ def menu():
 
 # creates map in an external file
 def export_map():
+    '''This function creates the map of the game so that the player can view
+       it later
+       '''
     # conditional branching
     try:
         with open(mapfile, 'w') as file:
@@ -211,6 +183,7 @@ def export_map():
 
 # print out the map to the console for the user to see
 def read_map():
+    '''This function prints the map'''
     # conditional branching 
     try:
         with open(mapfile, 'r') as file:
@@ -225,6 +198,7 @@ def read_map():
 
 # main game 
 def game():
+    '''This function acts as a main game'''
     intro()
     menu()
 #---main----------------------------------------------------------------------
