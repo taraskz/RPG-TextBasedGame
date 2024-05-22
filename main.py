@@ -40,7 +40,7 @@ expensive paintings and a long red carpet.\n",
     "Hallway_2": "You are in a hallway\n"
         }
 
-
+# room location on a grid
 room_location = {
     "Main Hall": (0,0),"Bathroom": (1,0),"Kings Room": (2,0),
     "Kitchen": (0,-1),"Hallway_2": (1,-1),"Throne Room": (2,-1), 
@@ -58,13 +58,11 @@ directions = {
     "west": (-1,0) # left
 }
 
-
 # converting rooms into tiles to use in external file 
 tile = ["Main Hall", "Kitchen","Kings Room","Dinning Room",
   "Throne Room","Bathroom","Weapon Storage", "Hallway_1",
   "Hallway_2"
  ]
-
 
 # tile location on the map
 tiles = [
@@ -101,7 +99,6 @@ def movement(direction):
 # the intro to the game
 def intro():
     '''This function prints all the info for the introduction of the game'''
-    global backpack
     print("You wake up in an unfamiliar place, with a strange woman beside \
 you\n")
     print("You've finally woken up hero - she said")
@@ -173,7 +170,7 @@ damage")
 the kingdom!!!!")
                 exit_game()
         elif action == 'run':
-            print("You ran away!!")
+            print("You ran away!!\n")
             movement("south")
             return
         elif action == 'ability':
@@ -190,11 +187,11 @@ health\n")
                 print(f"You have {player.health} health remaining\n")
             else:
                 print("Congrats you have defeated the Evil King and saved \
-the kingdom!!!!")
+the kingdom!!!!\n")
                 exit_game()
         else:
             print("Invalid action type it property 'attack', 'run', or \
-'ability'")
+'ability\n'")
             
     if not player.is_alive():
         print("You got defeated by the Evil King... Game over!!!")
@@ -276,7 +273,7 @@ def exit_game():
 
 # main game 
 def game():
-    '''This function acts as a main game'''
+    '''This function acts as a main game that calls the previous functions'''
     intro()
     menu()
 #---main----------------------------------------------------------------------
