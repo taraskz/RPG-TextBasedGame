@@ -1,1 +1,4 @@
 magical sword
+health potion
+kitchen knife
+apple

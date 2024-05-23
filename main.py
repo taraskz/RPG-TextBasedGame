@@ -28,8 +28,8 @@ chests = {
 
 
 rooms = {
-    "Main Hall": "You are in the main hall, in front of you is a long hall with \
-expensive paintings and a long red carpet.\n",
+    "Main Hall": "You are in the main hall, there are expensive paintings \
+and a long red carpet.\n",
     "Kitchen": "Now you're in the kitchen of the castle, it smells great\n",
     "Kings Room": "You are in the kings room where he sleeps, hes not here\n",
     "Dinning Room":"Now you're in the dinning room where the king eats\n",
