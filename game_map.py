@@ -15,11 +15,11 @@ tiles = [
    [tile[7],tile[3],tile[6]]
    ]
 
-# external file name 
+
+# external file name
 mapfile = 'map.txt'
 
 
-# creates map in an external file
 def export_map():
     '''This function creates the map of the game so that the player can view
         it later
@@ -32,7 +32,6 @@ def export_map():
         print("Something went wrong\n")
 
 
-# print out the map to the console for the user to see
 def read_map():
     '''This function prints the map'''
     # conditional branching 
