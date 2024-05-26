@@ -1,7 +1,7 @@
 ##############################################################################
 # Title: Saving the Kingdom Text Game
 # Class: CS 30
-# Date: March 13, 2024
+# Date: May 25, 2024
 # Coders: Taras K
 # Version: 004
 ##############################################################################
@@ -16,9 +16,11 @@ from player import Player
 from enemy import EvilKing
 from game_map import export_map, read_map
 
+
 inventory = Inventory()
 player = Player(name = "Hero")
 evil_king = EvilKing()
+
 
 chests = {
     "Main Hall": ["health potion"],
@@ -41,7 +43,7 @@ and a long red carpet.\n",
     "Hallway_2": "You're in a hallway leading to the thone room...\n"
         }
 
-# room location on a grid
+
 room_location = {
     "Main Hall": (0,0),"Bathroom": (1,0),"Kings Room": (2,0),
     "Kitchen": (0,-1),"Hallway_2": (1,-1),"Throne Room": (2,-1), 
@@ -126,24 +128,25 @@ def check_for_chest():
             print("You found a chest")
             for item in inside_chest:
                 print(f"- {item}")
-            pickup_item = input("Do you want to loot the chest? Yes or no: ")
+            pickup_item = input("\nDo you want to loot the chest? Yes or no: ")
             if pickup_item.lower() == "yes":
                 for item in inside_chest:
                     inventory.pickup(item)
                 # removing items from the chest
                 chests[current_location].clear()
-                print("The item is in your inventory")
+                print("\nThe item is in your inventory")
             else:
-                print("You left the chest alone")
+                print("\nYou left the chest alone")
         else:
             print("You left the chest alone")
 
 
 def encounter_evil_king():
-    '''This function creates a fight with the evil king when the player 
-        encounters him
-        '''
-    print(f"You entered {current_location}. the Evil King whats to fight you")
+    '''
+    This function creates a fight with the evil king when the player 
+    encounters him in the throne room
+    '''
+    print(f"\nYou entered {current_location}. the Evil King whats to fight you")
     while player.is_alive() and evil_king.is_alive():
         action = input("Do you want to 'attack', 'run' or use 'ability \
 ':\n").lower()
@@ -164,13 +167,13 @@ damage")
 the kingdom!!!!")
                 exit_game()
         elif action == 'run':
-            print("You ran away!!\n")
+            print("You ran away!!")
             movement("south")
             return
         elif action == 'ability':
             damage = 70
             evil_king.take_damage(damage)
-            print(f"You used your ability and dealt {damage} damage")
+            print(f"\nYou used your ability and dealt {damage} damage")
             if evil_king.is_alive():
                 print(f"The Evil King has {evil_king.health} remaining \
 health\n")
@@ -195,8 +198,8 @@ the kingdom!!!!\n")
 def movement_menu():
     '''This function is a sub-menu to show the user their movement options'''
     while True:
-        print("Here are your movement options, or type 'back' to return to \
-the main function:\n")
+        print("\nHere are your movement options, or type 'back' to return \
+to the main function:\n")
         for direction in directions:
             print(f"- {direction}")
         direction = input("Choose: ")
@@ -211,21 +214,25 @@ the main function:\n")
 
 # main game menu
 def menu():
-    '''This function is the main menu where the player chooses the action
-        they want to perform like walk, look at the map or inventory
-        '''
+    '''
+    This function is the main menu where the player chooses the action
+    they want to perform like walk, look at the map or inventory
+    '''
     while True:
         inventory.read()
-        print(f"current location: {rooms[current_location]}")  # prints current location
+        # print current location
+        print(f"\ncurrent location: {rooms[current_location]}")
         check_for_chest() # checks if there is chest in a room
-        print("Type 'quit' to exit the game\n")
-        print("Type 'inventory' to see your inventory\n")
-        print("Type 'abilities' to see your abilities\n")
-        print("Type 'map' to view map\n")
-        print("Type 'move' to see your movement options\n")
+        print("Type 'options' to see what you can choose\n")
         # conditional branching
         action = input("Choose your action: ").lower()
-        if action == 'move':
+        if action == 'options':
+            print("\nType 'quit' to exit the game")
+            print("Type 'inventory' to see your inventory")
+            print("Type 'abilities' to see your abilities")
+            print("Type 'map' to view map")
+            print("Type 'move' to see your movement options\n")
+        elif action == 'move':
             movement_menu()
         elif action == 'inventory':
             inventory.view()
@@ -241,9 +248,10 @@ def menu():
 
 
 def exit_game():
-    '''This function runs when the evil king is defeated and it ends 
-        the game
-        '''
+    '''
+    This function runs when the evil king is defeated and it ends 
+    the game
+    '''
     print("Thanks for playing and saving the kingdom. The game is over now")
     exit()
 
