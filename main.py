@@ -12,9 +12,9 @@
 ##############################################################################
 #---imports and global variables----------------------------------------------
 from inventory import Inventory
-from tabulate import tabulate
 from player import Player
 from enemy import EvilKing
+from game_map import export_map, read_map
 
 inventory = Inventory()
 player = Player(name = "Hero")
@@ -23,7 +23,8 @@ evil_king = EvilKing()
 chests = {
     "Main Hall": ["health potion"],
     "Kitchen": ["kitchen knife", "apple"],
-    "Kings Room": ["ancient royal sword"]
+    "Kings Room": ["ancient royal sword"],
+    "Weapon Storage": ["witches staff"]
           }
 
 
@@ -31,13 +32,13 @@ rooms = {
     "Main Hall": "You are in the main hall, there are expensive paintings \
 and a long red carpet.\n",
     "Kitchen": "Now you're in the kitchen of the castle, it smells great\n",
-    "Kings Room": "You are in the kings room where he sleeps, hes not here\n",
+    "Kings Room": "You're in the kings room where he sleeps, hes not here\n",
     "Dinning Room":"Now you're in the dinning room where the king eats\n",
     "Throne Room":"You ended up in the throne room where the king sits\n",
-    "Bathroom": "You are in the bathroom where the king does his buisness\n",
+    "Bathroom": "You're in the bathroom where the king does his buisness\n",
     "Weapon Storage": "You are in the weapon storage room\n",
-    "Hallway_1": "You are in a hallway\n",
-    "Hallway_2": "You are in a hallway\n"
+    "Hallway_1": "You're in a long hallway\n",
+    "Hallway_2": "You're in a hallway leading to the thone room\n"
         }
 
 # room location on a grid
@@ -58,26 +59,10 @@ directions = {
     "west": (-1,0) # left
 }
 
-# converting rooms into tiles to use in external file 
-tile = ["Main Hall", "Kitchen","Kings Room","Dinning Room",
-  "Throne Room","Bathroom","Weapon Storage", "Hallway_1",
-  "Hallway_2"
- ]
-
-# tile location on the map
-tiles = [
-   [tile[0],tile[5],tile[2]],
-   [tile[1],tile[8],tile[4]],
-   [tile[7],tile[3],tile[6]]
-   ]
-
-
-# external file name 
-mapfile = 'map.txt'
 #---functions-----------------------------------------------------------------
 def show_room_location():
     '''This function prints the current location of the player after each move
-    '''
+        '''
     print(rooms[current_location]) 
 
 
@@ -108,7 +93,7 @@ you\n")
 the evil king that reigns this kingdom. I need you to take this sword \
 and put an end to his evil deeds.\n")
     print("Type 'quit' to exit the game")
-    choice = input("Will you take the sword? Yes or no: ")
+    choice = input("Will you take the sword? Yes or no: \n")
     # conditional branching
     if choice == "yes":
         inventory.pickup("magical sword")
@@ -119,8 +104,8 @@ and put an end to his evil deeds.\n")
         print("***You close your eyes***")
         print("***You wake up in an unfamiliar castle***")
     else:
-        print("You refused the sword. Next time accept it, the game \
-will now end")
+        print("You refused the sword. The witch kills you with no mercy. \
+Next time accept it, the game will now end")
         exit_game()
 
 
@@ -192,7 +177,7 @@ the kingdom!!!!\n")
         else:
             print("Invalid action type it property 'attack', 'run', or \
 'ability\n'")
-            
+
     if not player.is_alive():
         print("You got defeated by the Evil King... Game over!!!")
         exit_game()
@@ -231,38 +216,6 @@ def menu():
           print("Please type the direction/action correctly")
 
 
-# creates map in an external file
-def export_map():
-    '''This function creates the map of the game so that the player can view
-        it later
-        '''
-    # conditional branching
-    try:
-        with open(mapfile, 'w') as file:
-            file.write(tabulate(tiles, tablefmt = "double_grid"))
-    except:
-        print("Something went wrong")
-    else:
-        print("Here is the map of the castle")
-    finally:
-        print("Good luck...")
-
-
-# print out the map to the console for the user to see
-def read_map():
-    '''This function prints the map'''
-    # conditional branching 
-    try:
-        with open(mapfile, 'r') as file:
-          print(file.read())
-    except:
-        print("Something went wrong")
-    else:
-        print("Here is the map to the castle")
-    finally:
-        print("Good luck...")
-
-
 def exit_game():
     '''This function runs when the evil king is defeated and it ends 
         the game
@@ -274,6 +227,7 @@ def exit_game():
 # main game 
 def game():
     '''This function acts as a main game that calls the previous functions'''
+    export_map()
     intro()
     menu()
 #---main----------------------------------------------------------------------

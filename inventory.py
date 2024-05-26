@@ -24,7 +24,7 @@ class Inventory:
       except:
           print("Something went wrong")
       else:
-          print("Here you go!!!\n")
+          print("Off you go!!!\n")
       finally:
           print("Good luck...\n")
 
@@ -38,6 +38,6 @@ class Inventory:
       except:
           print("Something went wrong")
       else:
-          print("Here you go!!!\n")
+          print("Off you go!!!\n")
       finally:
           print("Good luck...\n")
