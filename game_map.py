@@ -29,11 +29,7 @@ def export_map():
         with open(mapfile, 'w') as file:
             file.write(tabulate(tiles, tablefmt = "double_grid"))
     except:
-        print("Something went wrong")
-    else:
-        print("Here is the map of the castle")
-    finally:
-        print("Good luck...")
+        print("Something went wrong\n")
 
 
 # print out the map to the console for the user to see
@@ -44,8 +40,4 @@ def read_map():
         with open(mapfile, 'r') as file:
           print(file.read())
     except:
-        print("Something went wrong")
-    else:
-        print("Here is the map to the castle")
-    finally:
-        print("Good luck...")
+        print("Something went wrong\n")

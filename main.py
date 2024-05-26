@@ -77,17 +77,30 @@ def movement(direction):
     else:
         print("You hit your head against the wall try a different direction")
 
+
+def introduction():
+    '''This fucntion print the introdution of the story to the user'''
+    print("Welcome to the game, if you want to read the intro input 'yes', \
+if not then 'no'")
+    intro_choice = input("Choose: ")
+    if intro_choice == 'yes':
+        print("You wake up in an unfamiliar place, with a strange woman \
+beside you\n")
+        print("You've finally woken up hero - she said")
+        print("Where am I? - you reply")
+        print("The details are not important right now - she said\n")
+        print("You are the only person in this kingdom capable of defeating \
+the evil king that reigns this kingdom. I need you to take this sword \
+and put an end to his evil deeds.\n")
+        return
+    elif intro_choice == 'no':
+        return
+
+
 # the intro to the game
 def intro():
     '''This function prints all the info for the introduction of the game'''
-    print("You wake up in an unfamiliar place, with a strange woman beside \
-you\n")
-    print("You've finally woken up hero - she said")
-    print("Where am I? - you reply")
-    print("The details are not important right now - she said\n")
-    print("You are the only person in this kingdom capable of defeating \
-the evil king that reigns this kingdom. I need you to take this sword \
-and put an end to his evil deeds.\n")
+    introduction()
     print("Type 'quit' to exit the game")
     choice = input("Will you take the sword? Yes or no: ")
     # conditional branching
@@ -194,6 +207,7 @@ the main function:\n")
             return
         else:
             print("Invalid input, type it propertly please")
+
 
 # main game menu
 def menu():
