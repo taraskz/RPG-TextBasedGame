@@ -5,8 +5,7 @@
 # Coders: Taras K
 # Version: 004
 ##############################################################################
-'''
-This program is a text based game where the user gets to be a hero and 
+'''This program is a text based game where the user gets to be a hero and 
 move around a castle in order to eventually kill the evil king and save 
 everyone from his control
 '''
@@ -105,8 +104,7 @@ sword and put an end to his evil deeds.\n")
 
 
 def intro():
-    '''
-    This function prints all the info for the introduction of the game
+    '''This function prints all the info for the introduction of the game
     so the user understands the story and the goal of this game
     '''
     introduction() # allows user to skip intro to the game
@@ -161,8 +159,7 @@ Yes or no: ")
 
 
 def encounter_evil_king():
-    '''
-    This function creates a fight with the evil king when the player 
+    '''This function creates a fight with the evil king when the player
     encounters him in the throne room
     '''
     print(f"\nYou entered {current_location}. the Evil King whats to fight \
@@ -233,8 +230,7 @@ to the main function:\n")
 
 # main game menu
 def menu():
-    '''
-    This function is the main menu where the player chooses the action
+    '''This function is the main menu where the player chooses the action
     they want to perform like walk, look at the map or inventory
     '''
     while True:
@@ -267,9 +263,8 @@ def menu():
 
 
 def exit_game():
-    '''
-    This function runs when the evil king is defeated and it ends 
-    the game
+    '''This function runs when the evil king is defeated or when the user
+    doesn't take the sword and it ends the game compeletely
     '''
     print("Thanks for playing HERO. The game is over now")
     exit()
