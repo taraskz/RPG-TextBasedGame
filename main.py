@@ -61,6 +61,7 @@ directions = {
     "west": (-1,0) # right
 }
 
+
 #---functions-----------------------------------------------------------------
 
 
@@ -75,34 +76,36 @@ def movement(direction):
         current_location = next(room for room, index in room_location.items()
                                 if index == new_location)
         if current_location == "Throne Room":
-            encounter_evil_king()
+            encounter_evil_king() # engages the final battle
     else:
         print("You hit your head against the wall try a different direction")
 
 
 def introduction():
     '''This fucntion print the introdution of the story to the user'''
-    print("Welcome to the game, if you want to read the intro input 'yes', \
-if not then 'no'")
-    intro_choice = input("Choose: ")
-    if intro_choice == 'yes':
-        print("You wake up in an unfamiliar place, with a strange woman \
-beside you\n")
-        print("You've finally woken up hero - she said")
-        print("Where am I? - you reply")
-        print("The details are not important right now - she said\n")
-        print("You are the only person in this kingdom capable of defeating \
-the evil king that reigns this kingdom. I need you to take this sword \
-and put an end to his evil deeds.\n")
-        return
-    elif intro_choice == 'no':
-        return
+    print("Welcome to the game, if you want to read the intro input \
+'yes', if not then 'no'")
+    while True:
+        intro_choice = input("Choose: ")
+        if intro_choice == 'yes':
+            print("You wake up in an unfamiliar place, with a strange \
+woman beside you\n")
+            print("You've finally woken up hero - she said")
+            print("Where am I? - you reply")
+            print("The details are not important right now - she said\n")
+            print("You are the only person in this kingdom capable of \
+defeating the evil king that reigns this kingdom. I need you to take this \
+sword and put an end to his evil deeds.\n")
+            return
+        elif intro_choice == 'no':
+            return
+        else: 
+            print("Invalid input please type it in correctly!!!")
 
 
-# the intro to the game
 def intro():
     '''This function prints all the info for the introduction of the game'''
-    introduction()
+    introduction() # allows user to skip intro to the game
     print("Type 'quit' to exit the game")
     choice = input("Will you take the sword? Yes or no: ")
     # conditional branching
@@ -114,31 +117,41 @@ def intro():
         print("Now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up in an unfamiliar castle***")
-    else:
+    elif choice == 'no':
         print("You refused the sword. The witch kills you with no mercy. \
 Next time accept it, the game will now end")
         exit_game()
+    elif choice == 'quit':
+        exit_game()
+    else: 
+        print("Type your choice correctly!!!")
+        return
 
 
 def check_for_chest():
   # sub menu for checking if there is a chest in area and pick up items
-    if current_location in chests:
-        inside_chest = chests[current_location]
-        if inside_chest:
-            print("You found a chest")
-            for item in inside_chest:
-                print(f"- {item}")
-            pickup_item = input("\nDo you want to loot the chest? Yes or no: ")
-            if pickup_item.lower() == "yes":
+    while True:
+        if current_location in chests:
+            inside_chest = chests[current_location]
+            if inside_chest:
+                print("You found a chest")
                 for item in inside_chest:
-                    inventory.pickup(item)
-                # removing items from the chest
-                chests[current_location].clear()
-                print("\nThe item is in your inventory")
-            else:
-                print("\nYou left the chest alone")
-        else:
-            print("You left the chest alone")
+                    print(f"- {item}")
+                pickup_item = input("\nDo you want to loot the chest? \
+Yes or no: ")
+                if pickup_item.lower() == "yes":
+                    for item in inside_chest:
+                        inventory.pickup(item)
+                    # removing items from the chest
+                    chests[current_location].clear()
+                    print("\nThe item is in your inventory\n")
+                    return False
+                if pickup_item.lower() == "no":
+                    print("\nYou left the chest alone\n")
+                    return False
+                else:
+                    print("Please type your choice correctly!!!")
+            
 
 
 def encounter_evil_king():
@@ -159,8 +172,8 @@ def encounter_evil_king():
 health\n")
                 player_damage = 20 # player takes damage
                 player.take_damage(player_damage) 
-                print(f"The Evil King attacked back and dealt {player_damage} \
-damage")
+                print(f"The Evil King attacked back and dealt \
+{player_damage} damage")
                 print(f"You have {player.health} health remaining\n")
             else:
                 print("Congrats you have defeated the Evil King and saved \
@@ -200,7 +213,7 @@ def movement_menu():
     while True:
         print("\nHere are your movement options, or type 'back' to return \
 to the main function:\n")
-        for direction in directions:
+        for direction in directions: # print movement options
             print(f"- {direction}")
         direction = input("Choose: ")
         if direction in directions:
@@ -209,7 +222,7 @@ to the main function:\n")
         elif direction == 'back':
             return
         else:
-            print("Invalid input, type it propertly please")
+            print("Invalid input, type it propertly please!!!")
 
 
 # main game menu
@@ -244,7 +257,7 @@ def menu():
             print("Thanks for playing")
             return False
         else:
-          print("Please type the direction/action correctly")
+          print("Please type the direction/action correctly!!!")
 
 
 def exit_game():
@@ -252,7 +265,7 @@ def exit_game():
     This function runs when the evil king is defeated and it ends 
     the game
     '''
-    print("Thanks for playing and saving the kingdom. The game is over now")
+    print("Thanks for playing HERO. The game is over now")
     exit()
 
 
