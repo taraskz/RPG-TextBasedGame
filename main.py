@@ -23,10 +23,11 @@ evil_king = EvilKing()
 
 
 chests = {
-    "Main Hall": ["health potion"],
     "Kitchen": ["kitchen knife", "apple"],
+    "Hallway_1": ["rubber toy"],
     "Kings Room": ["ancient royal sword"],
-    "Weapon Storage": ["witches staff"]
+    "Weapon Storage": ["witches staff"],
+    "Bathroom": ["toothbrush"]
           }
 
 
@@ -83,12 +84,12 @@ def movement(direction):
 
 def introduction():
     '''This fucntion print the introdution of the story to the user'''
-    print("Welcome to the game, if you want to read the intro input \
+    print("Welcome to the game, if you want to read the intro, print \
 'yes', if not then 'no'")
     while True:
-        intro_choice = input("Choose: ")
+        intro_choice = input("Choose: ").lower()
         if intro_choice == 'yes':
-            print("You wake up in an unfamiliar place, with a strange \
+            print("\nYou wake up in an unfamiliar place, with a strange \
 woman beside you\n")
             print("You've finally woken up hero - she said")
             print("Where am I? - you reply")
@@ -100,40 +101,45 @@ sword and put an end to his evil deeds.\n")
         elif intro_choice == 'no':
             return
         else: 
-            print("Invalid input please type it in correctly!!!")
+            print("\nInvalid input please type it in correctly!!!")
 
 
 def intro():
-    '''This function prints all the info for the introduction of the game'''
+    '''
+    This function prints all the info for the introduction of the game
+    '''
     introduction() # allows user to skip intro to the game
     print("Type 'quit' to exit the game")
-    choice = input("Will you take the sword? Yes or no: ")
-    # conditional branching
-    if choice == "yes":
-        inventory.pickup("magical sword")
-        inventory.export()
-        player.add_ability("swordsmanship")
-        print("\nGreat with this you have a 'swordsmanship' ability\n")
-        print("Now close your eyes - the witch says\n")
-        print("***You close your eyes***")
-        print("***You wake up in an unfamiliar castle***")
-    elif choice == 'no':
-        print("You refused the sword. The witch kills you with no mercy. \
-Next time accept it, the game will now end")
-        exit_game()
-    elif choice == 'quit':
-        exit_game()
-    else: 
-        print("Type your choice correctly!!!")
-        return
+    while True:
+        choice = input("Will you take the sword? Yes or no: ")
+        # conditional branching
+        if choice == "yes":
+            inventory.pickup("magical sword")
+            inventory.export()
+            player.add_ability("swordsmanship")
+            print("\nGreat with this you have a 'swordsmanship' ability\n")
+            print("Now close your eyes - the witch says\n")
+            print("***You close your eyes***")
+            print("***You wake up in an unfamiliar castle***")
+            return
+        elif choice == 'no':
+            print("You refused the sword. The witch kills you with no \
+mercy. Next time accept it, the game will now end")
+            exit_game()
+        elif choice == 'quit':
+            exit_game()
+        else: 
+            print("\nType your choice correctly!!!")
 
 
 def check_for_chest():
-  # sub menu for checking if there is a chest in area and pick up items
-    while True:
-        if current_location in chests:
-            inside_chest = chests[current_location]
-            if inside_chest:
+    '''
+    Sub menu for checking if there is a chest in a room and picks up items
+    '''
+    if current_location in chests:
+        inside_chest = chests[current_location]
+        if inside_chest:
+            while True:
                 print("You found a chest")
                 for item in inside_chest:
                     print(f"- {item}")
@@ -150,8 +156,7 @@ Yes or no: ")
                     print("\nYou left the chest alone\n")
                     return False
                 else:
-                    print("Please type your choice correctly!!!")
-            
+                    print("\nPlease type your choice correctly!!!\n")
 
 
 def encounter_evil_king():
@@ -159,7 +164,8 @@ def encounter_evil_king():
     This function creates a fight with the evil king when the player 
     encounters him in the throne room
     '''
-    print(f"\nYou entered {current_location}. the Evil King whats to fight you")
+    print(f"\nYou entered {current_location}. the Evil King whats to fight \
+you")
     while player.is_alive() and evil_king.is_alive():
         action = input("Do you want to 'attack', 'run' or use 'ability \
 ':\n").lower()
@@ -211,7 +217,7 @@ the kingdom!!!!\n")
 def movement_menu():
     '''This function is a sub-menu to show the user their movement options'''
     while True:
-        print("\nHere are your movement options, or type 'back' to return \
+        print("Here are your movement options, or type 'back' to return \
 to the main function:\n")
         for direction in directions: # print movement options
             print(f"- {direction}")
@@ -222,7 +228,7 @@ to the main function:\n")
         elif direction == 'back':
             return
         else:
-            print("Invalid input, type it propertly please!!!")
+            print("\nInvalid input, type it propertly please!!!")
 
 
 # main game menu
@@ -275,6 +281,10 @@ def game():
     export_map()
     intro()
     menu()
+
+
 #---main----------------------------------------------------------------------
+
+
 game()
 
