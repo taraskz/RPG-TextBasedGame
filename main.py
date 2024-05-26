@@ -37,8 +37,8 @@ and a long red carpet.\n",
     "Throne Room":"You ended up in the throne room where the king sits\n",
     "Bathroom": "You're in the bathroom where the king does his buisness\n",
     "Weapon Storage": "You are in the weapon storage room\n",
-    "Hallway_1": "You're in a long hallway\n",
-    "Hallway_2": "You're in a hallway leading to the thone room\n"
+    "Hallway_1": "You're in a long hallway not much to see here\n",
+    "Hallway_2": "You're in a hallway leading to the thone room...\n"
         }
 
 # room location on a grid
@@ -55,15 +55,11 @@ current_location = "Main Hall" #staring position is main hall
 directions = {
     "north": (0,1), # up
     "south": (0,-1), # down
-    "east": (1,0), # right
-    "west": (-1,0) # left
+    "east": (1,0), # left
+    "west": (-1,0) # right
 }
 
 #---functions-----------------------------------------------------------------
-def show_room_location():
-    '''This function prints the current location of the player after each move
-        '''
-    print(rooms[current_location]) 
 
 
 def movement(direction):
@@ -93,13 +89,13 @@ you\n")
 the evil king that reigns this kingdom. I need you to take this sword \
 and put an end to his evil deeds.\n")
     print("Type 'quit' to exit the game")
-    choice = input("Will you take the sword? Yes or no: \n")
+    choice = input("Will you take the sword? Yes or no: ")
     # conditional branching
     if choice == "yes":
         inventory.pickup("magical sword")
         inventory.export()
         player.add_ability("swordsmanship")
-        print("Great with this you have a 'swordsmanship' ability\n")
+        print("\nGreat with this you have a 'swordsmanship' ability\n")
         print("Now close your eyes - the witch says\n")
         print("***You close your eyes***")
         print("***You wake up in an unfamiliar castle***")
@@ -183,6 +179,22 @@ the kingdom!!!!\n")
         exit_game()
 
 
+def movement_menu():
+    '''This function is a sub-menu to show the user their movement options'''
+    while True:
+        print("Here are your movement options, or type 'back' to return to \
+the main function:\n")
+        for direction in directions:
+            print(f"- {direction}")
+        direction = input("Choose: ")
+        if direction in directions:
+            movement(direction)
+            return
+        elif direction == 'back':
+            return
+        else:
+            print("Invalid input, type it propertly please")
+
 # main game menu
 def menu():
     '''This function is the main menu where the player chooses the action
@@ -190,29 +202,27 @@ def menu():
         '''
     while True:
         inventory.read()
-        show_room_location() # prints current location
+        print(f"current location: {rooms[current_location]}")  # prints current location
         check_for_chest() # checks if there is chest in a room
         print("Type 'quit' to exit the game\n")
         print("Type 'inventory' to see your inventory\n")
         print("Type 'abilities' to see your abilities\n")
         print("Type 'map' to view map\n")
-        print("Here are your movement options:\n")
+        print("Type 'move' to see your movement options\n")
         # conditional branching
-        for direction in directions:
-            print(f"- {direction}")
-        direction = input("Choose: ").lower()
-        if direction in directions:
-            movement(direction)
-        elif direction == 'inventory':
+        action = input("Choose your action: ").lower()
+        if action == 'move':
+            movement_menu()
+        elif action == 'inventory':
             inventory.view()
-        elif direction == 'abilities':
+        elif action == 'abilities':
             player.view_abilities()
-        elif direction == 'map':
+        elif action == 'map':
             read_map()
-        elif direction == 'quit':
+        elif action == 'quit':
             print("Thanks for playing")
             return False
-        elif direction not in directions:
+        else:
           print("Please type the direction/action correctly")
 
 

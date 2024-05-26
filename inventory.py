@@ -22,11 +22,7 @@ class Inventory:
               for item in self.backpack:
                   f.write(item + '\n')
       except:
-          print("Something went wrong")
-      else:
-          print("Off you go!!!\n")
-      finally:
-          print("Good luck...\n")
+          print("Something went wrong\n")
 
   def read(self):
       '''This function prints out the inventory'''
@@ -36,8 +32,4 @@ class Inventory:
                   item = line.strip()
                   self.backpack[item] = True
       except:
-          print("Something went wrong")
-      else:
-          print("Off you go!!!\n")
-      finally:
-          print("Good luck...\n")
+          print("Something went wrong\n")
