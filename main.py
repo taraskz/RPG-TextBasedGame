@@ -5,10 +5,11 @@
 # Coders: Taras K
 # Version: 004
 ##############################################################################
-'''This program is a text based game where the user gets to be a hero and move
-   around a castle in order to eventually kill the evil king and save everyone
-   from his control
-   '''
+'''
+This program is a text based game where the user gets to be a hero and 
+move around a castle in order to eventually kill the evil king and save 
+everyone from his control
+'''
 ##############################################################################
 #---imports and global variables----------------------------------------------
 from inventory import Inventory
@@ -32,16 +33,16 @@ chests = {
 
 
 rooms = {
-    "Main Hall": "You are in the main hall, there are expensive paintings \
+    "Main Hall": "You are in the Main Hall, there are expensive paintings \
 and a long red carpet.\n",
-    "Kitchen": "Now you're in the kitchen of the castle, it smells great\n",
-    "Kings Room": "You're in the kings room where he sleeps, hes not here\n",
-    "Dinning Room":"Now you're in the dinning room where the king eats\n",
-    "Throne Room":"You ended up in the throne room where the king sits\n",
-    "Bathroom": "You're in the bathroom where the king does his buisness\n",
-    "Weapon Storage": "You are in the weapon storage room\n",
-    "Hallway_1": "You're in a long hallway not much to see here\n",
-    "Hallway_2": "You're in a hallway leading to the thone room...\n"
+    "Kitchen": "Now you're in the Kitchen of the castle, it smells great\n",
+    "Kings Room": "You're in the Kings Room where he sleeps, hes not here\n",
+    "Dinning Room":"Now you're in the Dinning Room where the king eats\n",
+    "Throne Room":"You ended up in the Throne Room where the king sits\n",
+    "Bathroom": "You're in the Bathroom where the king does his buisness\n",
+    "Weapon Storage": "You are in the Weapon Storage room\n",
+    "Hallway_1": "You're in a long Hallway not much to see here\n",
+    "Hallway_2": "You're in a Hallway leading to the thone room...\n"
         }
 
 
@@ -64,8 +65,6 @@ directions = {
 
 
 #---functions-----------------------------------------------------------------
-
-
 def movement(direction):
     '''This function handles the movement input of the player'''
     global current_location
@@ -79,7 +78,8 @@ def movement(direction):
         if current_location == "Throne Room":
             encounter_evil_king() # engages the final battle
     else:
-        print("You hit your head against the wall try a different direction")
+        print("\nYou hit your head against the wall try a different \
+direction")
 
 
 def introduction():
@@ -107,6 +107,7 @@ sword and put an end to his evil deeds.\n")
 def intro():
     '''
     This function prints all the info for the introduction of the game
+    so the user understands the story and the goal of this game
     '''
     introduction() # allows user to skip intro to the game
     print("Type 'quit' to exit the game")
@@ -133,8 +134,8 @@ mercy. Next time accept it, the game will now end")
 
 
 def check_for_chest():
-    '''
-    Sub menu for checking if there is a chest in a room and picks up items
+    '''Sub menu for checking if there is a chest in a room and picks 
+    up or leaves items based on user input
     '''
     if current_location in chests:
         inside_chest = chests[current_location]
@@ -208,7 +209,6 @@ the kingdom!!!!\n")
         else:
             print("Invalid action type it property 'attack', 'run', or \
 'ability\n'")
-
     if not player.is_alive():
         print("You got defeated by the Evil King... Game over!!!")
         exit_game()
@@ -275,7 +275,6 @@ def exit_game():
     exit()
 
 
-# main game 
 def game():
     '''This function acts as a main game that calls the previous functions'''
     export_map()
@@ -284,7 +283,5 @@ def game():
 
 
 #---main----------------------------------------------------------------------
-
-
 game()
 
